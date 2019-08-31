@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF_Cross", "WPF_Cross.cspr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cross.Data", "Cross.Data\Cross.Data.csproj", "{9B982AAA-F34F-4C74-BDEB-A94CA314F793}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cross.Aggregator", "Cross.Aggregator\Cross.Aggregator.csproj", "{4A3B25BF-B758-4D1E-9635-12DFA01E03CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9B982AAA-F34F-4C74-BDEB-A94CA314F793}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B982AAA-F34F-4C74-BDEB-A94CA314F793}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B982AAA-F34F-4C74-BDEB-A94CA314F793}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A3B25BF-B758-4D1E-9635-12DFA01E03CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A3B25BF-B758-4D1E-9635-12DFA01E03CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A3B25BF-B758-4D1E-9635-12DFA01E03CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A3B25BF-B758-4D1E-9635-12DFA01E03CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
