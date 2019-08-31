@@ -1,0 +1,14 @@
+﻿<Controls:MetroWindow x:Class="WPF_Cross.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_Cross"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:usercontrols="clr-namespace:WPF_Cross.UserControls"
+                      mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Frame Source="Views/EditorView.xaml"></Frame>
+    </Grid>
+</Controls:MetroWindow>
