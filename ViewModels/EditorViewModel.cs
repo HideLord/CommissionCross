@@ -11,7 +11,10 @@ namespace WPF_Cross.ViewModels
 {
     public class EditorViewModel
     {
-        public FormData Data;
+        public FormData Data { get; set; }
+        public bool PreserveSquareRatio { get; set; } = true;
+        public bool PreserveSetRatio { get; set; } = true;
+        public bool PreserveArrowRatio { get; set; } = true;
 
         private IEventAggregator eventAggregator;
 

@@ -5,17 +5,42 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WPF_Cross.Views"
       xmlns:usercontrols="clr-namespace:WPF_Cross.UserControls"
+      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="EditorView">
 
+    <Page.Resources>
+        <Style TargetType="usercontrols:EditorControl" x:Key="SquareLock">
+            <Setter Property="IsEnabled" Value="False"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsChecked, ElementName=ToggleSquare}" Value="False">
+                    <Setter Property="IsEnabled" Value="True"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+    
     <Grid>
         <TabControl>
             <TabItem Header="Square">
                 <StackPanel>
-                    <usercontrols:EditorControl Header="Rotation"/>
-                    <usercontrols:EditorControl Header="Width"/>
-                    <usercontrols:EditorControl Header="Height"/>
+                    <usercontrols:EditorControl Header="Rotation" EditedVal="{Binding Path=Data.SquareRotation}" />
+                    <usercontrols:EditorControl Header="Width"  EditedVal="{Binding Path=Data.SquareWidth}" />
+                    <usercontrols:EditorControl Header="Height"  EditedVal="{Binding Path=Data.SquareHeight}" Style="{StaticResource SquareLock}"/>
+
+                    <Controls:ToggleSwitch Header="Preserve ratio" Name="ToggleSquare" IsChecked="True"/>
+
+                    <TextBlock FontSize="16">
+                        <Run Text="Width:  "></Run>
+                        <Run Text="12"></Run>
+                        <Run Text="mm"></Run>
+                    </TextBlock>
+                    <TextBlock FontSize="16">
+                        <Run Text="Height: "></Run>
+                        <Run Text="12"></Run>
+                        <Run Text="mm"></Run>
+                    </TextBlock>
                 </StackPanel>
             </TabItem>
         </TabControl>

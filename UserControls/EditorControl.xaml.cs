@@ -25,7 +25,7 @@ namespace WPF_Cross.UserControls
         private static readonly DependencyProperty headerProp =
             DependencyProperty.Register("Header", typeof(string), typeof(EditorControl));
 
-        private static readonly DependencyProperty bindingProp =
+        private static readonly DependencyProperty editedValProp =
             DependencyProperty.Register("EditedVal", typeof(int), typeof(EditorControl));
 
         public string Header
@@ -34,10 +34,10 @@ namespace WPF_Cross.UserControls
             set=> SetValue(headerProp,value);
         }
 
-        public double EditedVal
+        public int EditedVal
         {
-            get => (int)GetValue(bindingProp);
-            set => SetValue(bindingProp, value);
+            get => (int)GetValue(editedValProp);
+            set => SetValue(editedValProp, value);
         }
 
         public EditorControl()

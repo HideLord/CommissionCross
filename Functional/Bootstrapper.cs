@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace WPF_Cross
 {
-    public static class Bootstraper
+    public static class Bootstrapper
     {
         public static IContainer Container { get; set; }
 
@@ -18,13 +18,13 @@ namespace WPF_Cross
         {
             var builder = new ContainerBuilder();
 
-            string servicesAssemblyPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "ChessEngine.Services.dll");
-            Assembly assembly = Assembly.LoadFile(servicesAssemblyPath);
+            //string servicesAssemblyPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Cross.Services.dll");
+            //Assembly assembly = Assembly.LoadFile(servicesAssemblyPath);
 
-            builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance(); 
+            builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
 
-            builder.RegisterAssemblyTypes(assembly)
-                .AsImplementedInterfaces();
+            //builder.RegisterAssemblyTypes(assembly)
+                //.AsImplementedInterfaces();
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                 .Where(t => t.Name.EndsWith("ViewModel"))

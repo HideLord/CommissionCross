@@ -23,6 +23,7 @@ namespace WPF_Cross
     {
         public MainWindow()
         {
+            Bootstrapper.Init();
             InitializeComponent();
         }
     }

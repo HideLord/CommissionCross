@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_Cross"
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-                      xmlns:usercontrols="clr-namespace:WPF_Cross.UserControls"
-                      mc:Ignorable="d"
+        xmlns:usercontrols="clr-namespace:WPF_Cross.UserControls"
+        mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Frame Source="Views/EditorView.xaml"></Frame>

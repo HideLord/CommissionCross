@@ -1,5 +1,4 @@
-﻿using Autofac;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WPF_Cross.ViewModels;
 
 namespace WPF_Cross.Views
 {
     /// <summary>
-    /// Interaction logic for EditorView.xaml
+    /// Interaction logic for ThumbnailView.xaml
     /// </summary>
-    public partial class EditorView : Page
+    public partial class ThumbnailView : Page
     {
-        public EditorView()
+        public ThumbnailView()
         {
             InitializeComponent();
-            this.DataContext = Bootstrapper.Container.Resolve<EditorViewModel>();
         }
     }
 }
