@@ -6,15 +6,34 @@
       xmlns:local="clr-namespace:WPF_Cross.Views"
       xmlns:usercontrols="clr-namespace:WPF_Cross.UserControls"
       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:converters="clr-namespace:WPF_Cross.Functional.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="EditorView">
 
     <Page.Resources>
+        <converters:PointsToPath x:Key="PointsToPath"/>
+        
         <Style TargetType="usercontrols:EditorControl" x:Key="SquareLock">
             <Setter Property="IsEnabled" Value="False"></Setter>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsChecked, ElementName=ToggleSquare}" Value="False">
+                    <Setter Property="IsEnabled" Value="True"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="usercontrols:EditorControl" x:Key="SetLock">
+            <Setter Property="IsEnabled" Value="False"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsChecked, ElementName=ToggleSet}" Value="False">
+                    <Setter Property="IsEnabled" Value="True"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="usercontrols:EditorControl" x:Key="ArrowLock">
+            <Setter Property="IsEnabled" Value="False"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsChecked, ElementName=ToggleArrow}" Value="False">
                     <Setter Property="IsEnabled" Value="True"></Setter>
                 </DataTrigger>
             </Style.Triggers>
@@ -24,24 +43,149 @@
     <Grid>
         <TabControl>
             <TabItem Header="Square">
-                <StackPanel>
-                    <usercontrols:EditorControl Header="Rotation" EditedVal="{Binding Path=Data.SquareRotation}" />
-                    <usercontrols:EditorControl Header="Width"  EditedVal="{Binding Path=Data.SquareWidth}" />
-                    <usercontrols:EditorControl Header="Height"  EditedVal="{Binding Path=Data.SquareHeight}" Style="{StaticResource SquareLock}"/>
+                <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    <StackPanel>
+                        <usercontrols:EditorControl Header="Rotation" EditedVal="{Binding Path=Data.SquareRotation, Mode=TwoWay}" />
+                        <usercontrols:EditorControl Header="Width"  EditedVal="{Binding Path=Data.SquareWidth, Mode=TwoWay}" />
+                        <usercontrols:EditorControl Header="Height"  EditedVal="{Binding Path=Data.SquareHeight, Mode=TwoWay}" Style="{StaticResource SquareLock}"/>
 
-                    <Controls:ToggleSwitch Header="Preserve ratio" Name="ToggleSquare" IsChecked="True"/>
+                        <Controls:ToggleSwitch Margin="0 15" Header="Preserve ratio" Name="ToggleSquare" IsChecked="{Binding PreserveSquareRatio}" HorizontalAlignment="Left"/>
 
-                    <TextBlock FontSize="16">
-                        <Run Text="Width:  "></Run>
-                        <Run Text="12"></Run>
-                        <Run Text="mm"></Run>
-                    </TextBlock>
-                    <TextBlock FontSize="16">
-                        <Run Text="Height: "></Run>
-                        <Run Text="12"></Run>
-                        <Run Text="mm"></Run>
-                    </TextBlock>
-                </StackPanel>
+                        <TextBlock FontSize="16">
+                            <Run Text="Width:  "></Run>
+                            <Run Text="12"></Run>
+                            <Run Text="mm"></Run>
+                        </TextBlock>
+                        <TextBlock FontSize="16">
+                            <Run Text="Height: "></Run>
+                            <Run Text="12"></Run>
+                            <Run Text="mm"></Run>
+                        </TextBlock>
+
+                        <Separator Margin="0 20"></Separator>
+
+                        <ItemsControl ItemsSource="{Binding Squares.Figures}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Padding="15">
+                                        <Path Data="{Binding Points, Converter={StaticResource ResourceKey=PointsToPath}}">
+                                            <Path.Style>
+                                                <Style TargetType="Path">
+                                                    <Setter Property="StrokeThickness" Value="1"/>
+                                                    <Setter Property="Stroke" Value="Black"/>
+                                                    <Setter Property="Fill" Value="Transparent"/>
+                                                    <Setter Property="Stretch" Value="Uniform"/>
+                                                </Style>
+                                            </Path.Style>
+                                        </Path>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Set">
+                <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    <StackPanel>
+                        <usercontrols:EditorControl Header="Rotation" EditedVal="{Binding Path=Data.SetRotation, Mode=TwoWay}" />
+                        <usercontrols:EditorControl Header="Width"  EditedVal="{Binding Path=Data.SetWidth, Mode=TwoWay}" />
+                        <usercontrols:EditorControl Header="Height"  EditedVal="{Binding Path=Data.SetHeight, Mode=TwoWay}" Style="{StaticResource SetLock}"/>
+
+                        <Controls:ToggleSwitch Margin="0 15" Header="Preserve ratio" Name="ToggleSet" IsChecked="{Binding PreserveSetRatio}" HorizontalAlignment="Left"/>
+
+                        <TextBlock FontSize="16">
+                            <Run Text="Width:  "></Run>
+                            <Run Text="12"></Run>
+                            <Run Text="mm"></Run>
+                        </TextBlock>
+                        <TextBlock FontSize="16">
+                            <Run Text="Height: "></Run>
+                            <Run Text="12"></Run>
+                            <Run Text="mm"></Run>
+                        </TextBlock>
+
+                        <Separator Margin="0 20"></Separator>
+
+                        <ItemsControl ItemsSource="{Binding Sets.Figures}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Padding="15">
+                                        <Path Data="{Binding Points, Converter={StaticResource ResourceKey=PointsToPath}}">
+                                            <Path.Style>
+                                                <Style TargetType="Path">
+                                                    <Setter Property="StrokeThickness" Value="1"/>
+                                                    <Setter Property="Stroke" Value="Black"/>
+                                                    <Setter Property="Fill" Value="Transparent"/>
+                                                    <Setter Property="Stretch" Value="Uniform"/>
+                                                </Style>
+                                            </Path.Style>
+                                        </Path>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Arrows">
+                <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    <StackPanel>
+                        <usercontrols:EditorControl Header="Width"  EditedVal="{Binding Path=Data.ArrowWidth, Mode=TwoWay}" />
+                        <usercontrols:EditorControl Header="Height"  EditedVal="{Binding Path=Data.ArrowHeight, Mode=TwoWay}" Style="{StaticResource ArrowLock}"/>
+
+                        <Controls:ToggleSwitch Margin="0 15" Header="Preserve ratio" Name="ToggleArrow" IsChecked="{Binding PreserveArrowRatio}" HorizontalAlignment="Left"/>
+
+                        <TextBlock FontSize="16">
+                            <Run Text="Width:  "></Run>
+                            <Run Text="12"></Run>
+                            <Run Text="mm"></Run>
+                        </TextBlock>
+                        <TextBlock FontSize="16">
+                            <Run Text="Height: "></Run>
+                            <Run Text="12"></Run>
+                            <Run Text="mm"></Run>
+                        </TextBlock>
+
+                        <Separator Margin="0 20"></Separator>
+
+                        <ItemsControl ItemsSource="{Binding Arrows.Figures}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Padding="15">
+                                        <Path Data="{Binding Points, Converter={StaticResource ResourceKey=PointsToPath}}">
+                                            <Path.Style>
+                                                <Style TargetType="Path">
+                                                    <Setter Property="StrokeThickness" Value="0"/>
+                                                    <Setter Property="Fill" Value="Black"/>
+                                                    <Setter Property="Stretch" Value="Uniform"/>
+                                                </Style>
+                                            </Path.Style>
+                                        </Path>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                    </StackPanel>
+                </ScrollViewer>
             </TabItem>
         </TabControl>
     </Grid>

@@ -8,7 +8,7 @@ namespace Cross.Data
 {
     public class Figure : BaseNotify, ICloneable
     {
-        public List<Point> Points;
+        public List<Point> Points { get; set; }
 
         public Figure()
         {

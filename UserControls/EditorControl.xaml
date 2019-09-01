@@ -34,7 +34,7 @@
             </Grid.ColumnDefinitions>
 
             <Button Content="&lt;" Grid.Column="0" Click="Decrease"></Button>
-            <TextBox Text="{Binding EditedVal}" Grid.Column="1"/>
+            <TextBox Text="{Binding EditedVal, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"/>
             <Button Content="&gt;" Grid.Column="2" Click="Increase"></Button>
         </Grid>
     </StackPanel>

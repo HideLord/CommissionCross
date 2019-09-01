@@ -74,6 +74,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Functional\Bootstrapper.cs" />
+    <Compile Include="Functional\Converters\PointsToPath.cs" />
     <Compile Include="UserControls\EditorControl.xaml.cs">
       <DependentUpon>EditorControl.xaml</DependentUpon>
     </Compile>
@@ -89,9 +90,6 @@
     </Compile>
     <Compile Include="Views\TemplatePanelView.xaml.cs">
       <DependentUpon>TemplatePanelView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ThumbnailView.xaml.cs">
-      <DependentUpon>ThumbnailView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -118,10 +116,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TemplatePanelView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ThumbnailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -162,6 +156,11 @@
       <Project>{9B982AAA-F34F-4C74-BDEB-A94CA314F793}</Project>
       <Name>Cross.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="Cross.Services\Cross.Services.csproj">
+      <Project>{256FF45E-488E-407F-86CA-3AFC98C143AF}</Project>
+      <Name>Cross.Services</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

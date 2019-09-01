@@ -21,7 +21,7 @@ namespace Cross.Services
             // find the x and y scalars
             double dx = (p.X - center.X);
             double dy = (p.Y - center.Y);
-            // translate the point to the new system relative to the given center
+            // Multiply the new matrixes and then add the origin
             p.X = center.X + (dx * cosAngle - dy * sinAngle);
             p.Y = center.Y + (dx * sinAngle + dy * cosAngle);
             return p;
@@ -92,6 +92,42 @@ namespace Cross.Services
             }
 
             return scaledFigure;
+        }
+        
+        public List<Figure> Normalize(List<Figure> figures, double defaultSide)
+        {
+            List<Figure> newFigures = new List<Figure>();
+            for (int i = 0; i < figures.Count; i++) newFigures.Add((Figure)figures[i].Clone());
+
+            for (int i = 0; i < newFigures.Count; i++)
+            {
+                double minX = 1000000, minY = 10000000, maxY = -1000000, maxX = -1000000, currSide;
+                foreach (var p in newFigures[i].Points)
+                {
+                    minX = Math.Min(minX, p.X);
+                    minY = Math.Min(minY, p.Y);
+                    
+                    maxX = Math.Max(maxX, p.X);
+                    maxY = Math.Max(maxY, p.Y);
+                }
+                currSide = Math.Max(maxY - minY, maxX - minX);
+                for (int j = 0; j < newFigures[i].Points.Count; j++)
+                {
+                    newFigures[i].Points[j].X -= minX;
+                    newFigures[i].Points[j].Y -= minY;
+                }
+                if (defaultSide != 0)
+                {
+                    double coef = defaultSide / currSide;
+                    for (int j = 0; j < newFigures[i].Points.Count; j++)
+                    {
+                        newFigures[i].Points[j].X *= coef;
+                        newFigures[i].Points[j].Y *= coef;
+                    }
+                }
+            }
+
+            return newFigures;
         }
     }
 }

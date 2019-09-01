@@ -9,6 +9,7 @@ namespace Cross.Services.Contracts
 {
     public interface IFigureManip
     {
+        List<Figure> Normalize(List<Figure> figures, double defaultSide);
         Figure Rotate(Figure figure, Point origin, double angle);
         Figure Scale(Figure figure, double xCoef, double yCoef);
         Figure Translate(Figure figure, double x, double y);

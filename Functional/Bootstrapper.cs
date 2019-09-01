@@ -18,13 +18,13 @@ namespace WPF_Cross
         {
             var builder = new ContainerBuilder();
 
-            //string servicesAssemblyPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Cross.Services.dll");
-            //Assembly assembly = Assembly.LoadFile(servicesAssemblyPath);
+            string servicesAssemblyPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Cross.Services.dll");
+            Assembly assembly = Assembly.LoadFile(servicesAssemblyPath);
 
             builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
 
-            //builder.RegisterAssemblyTypes(assembly)
-                //.AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(assembly)
+                .AsImplementedInterfaces();
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                 .Where(t => t.Name.EndsWith("ViewModel"))
