@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WPF_Cross.ViewModels
 {
-    class CrossViewModel
+    public class CrossViewModel
     {
     }
 }

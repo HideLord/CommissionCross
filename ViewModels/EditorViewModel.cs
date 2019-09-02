@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace WPF_Cross.ViewModels
 {
-    public class EditorViewModel : BaseNotify
+    public class EditorViewModel
     {
         public FormData Data { get; set; }
         public bool PreserveSquareRatio { get; set; } = true;
@@ -32,7 +32,7 @@ namespace WPF_Cross.ViewModels
             Squares = Bootstrapper.Container.Resolve<ThumbnailViewModel>();
             Sets = Bootstrapper.Container.Resolve<ThumbnailViewModel>();
             Arrows = Bootstrapper.Container.Resolve<ThumbnailViewModel>();
-
+          
             Squares.init("squares.txt", 50);
             Sets.init("sets.txt", 50);
             Arrows.init("arrows.txt", 50);

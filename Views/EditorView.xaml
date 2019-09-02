@@ -72,18 +72,18 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Button Padding="15">
-                                        <Path Data="{Binding Points, Converter={StaticResource ResourceKey=PointsToPath}}">
+                                    <ToggleButton Padding="15" IsChecked="{Binding IsSelected, Mode=TwoWay}">
+                                        <Path Data="{Binding FigureObj.Points, Converter={StaticResource ResourceKey=PointsToPath}}">
                                             <Path.Style>
                                                 <Style TargetType="Path">
                                                     <Setter Property="StrokeThickness" Value="1"/>
                                                     <Setter Property="Stroke" Value="Black"/>
-                                                    <Setter Property="Fill" Value="Transparent"/>
+                                                    <Setter Property="Fill" Value="White"/>
                                                     <Setter Property="Stretch" Value="Uniform"/>
                                                 </Style>
                                             </Path.Style>
                                         </Path>
-                                    </Button>
+                                    </ToggleButton>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
@@ -121,18 +121,18 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Button Padding="15">
-                                        <Path Data="{Binding Points, Converter={StaticResource ResourceKey=PointsToPath}}">
+                                    <ToggleButton Padding="15" IsChecked="{Binding IsSelected}">
+                                        <Path Data="{Binding FigureObj.Points, Converter={StaticResource ResourceKey=PointsToPath}}">
                                             <Path.Style>
                                                 <Style TargetType="Path">
                                                     <Setter Property="StrokeThickness" Value="1"/>
                                                     <Setter Property="Stroke" Value="Black"/>
-                                                    <Setter Property="Fill" Value="Transparent"/>
+                                                    <Setter Property="Fill" Value="White"/>
                                                     <Setter Property="Stretch" Value="Uniform"/>
                                                 </Style>
                                             </Path.Style>
                                         </Path>
-                                    </Button>
+                                    </ToggleButton>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
@@ -169,8 +169,8 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Button Padding="15">
-                                        <Path Data="{Binding Points, Converter={StaticResource ResourceKey=PointsToPath}}">
+                                    <ToggleButton Padding="15" IsChecked="{Binding IsSelected}">
+                                        <Path Data="{Binding FigureObj.Points, Converter={StaticResource ResourceKey=PointsToPath}}">
                                             <Path.Style>
                                                 <Style TargetType="Path">
                                                     <Setter Property="StrokeThickness" Value="0"/>
@@ -179,7 +179,7 @@
                                                 </Style>
                                             </Path.Style>
                                         </Path>
-                                    </Button>
+                                    </ToggleButton>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
