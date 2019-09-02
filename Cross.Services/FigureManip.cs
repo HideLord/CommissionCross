@@ -93,7 +93,25 @@ namespace Cross.Services
 
             return scaledFigure;
         }
-        
+        public Figure UniformScale(Figure figure, double xCoef, double yCoef)
+        {
+            Figure scaledFigure = (Figure)figure.Clone();
+
+            Point origin = FindCenterOfBound(scaledFigure);
+
+            scaledFigure = Translate(scaledFigure, -origin.X, -origin.Y);
+
+            for (int i = 0; i < scaledFigure.Points.Count; i++)
+            {
+                scaledFigure.Points[i].X *= xCoef;
+                scaledFigure.Points[i].Y *= yCoef;
+            }
+
+            scaledFigure = Translate(scaledFigure, origin.X, origin.Y);
+
+            return scaledFigure;
+        }
+
         public List<Figure> Normalize(List<Figure> figures, double defaultSide)
         {
             List<Figure> newFigures = new List<Figure>();

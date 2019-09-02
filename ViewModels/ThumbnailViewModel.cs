@@ -10,48 +10,30 @@ using System.Threading.Tasks;
 
 namespace WPF_Cross.ViewModels
 {
-    public class CustomFigure : INotifyPropertyChanged
-    {
-        public CustomFigure(Figure figure)
-        {
-            FigureObj = figure;
-        }
-        Figure figure;
-        public Figure FigureObj
-        {
-            get => figure;
-            set
-            {
-                figure = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("FigureObj"));
-            }
-        }
-        bool isSelected = false;
-        public bool IsSelected
-        {
-            get => isSelected;
-            set
-            {
-                isSelected = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsSelected"));
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-    }
-
-    public class ThumbnailViewModel
+    public class ThumbnailViewModel : INotifyPropertyChanged
     {
         private ILoadFiguresService loader;
         private IFigureManip manipulator;
 
         private int lastSelected = -1;
 
-        public List<CustomFigure> Figures { get; set; }
+        public int LastSelected
+        {
+            get => lastSelected;
+            set
+            {
+                lastSelected = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("LastSelected"));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public List<ThumbnailFigureViewModel> Figures { get; set; }
 
         public ThumbnailViewModel(ILoadFiguresService loader, IFigureManip manipulator)
         {
-            this.Figures = new List<CustomFigure>();
+            this.Figures = new List<ThumbnailFigureViewModel>();
             this.loader = loader;
             this.manipulator = manipulator;
         }
@@ -61,7 +43,7 @@ namespace WPF_Cross.ViewModels
             var Figures = loader.LoadFigures(fileName);
             Figures = manipulator.Normalize(Figures, size);
             for (int i = 0; i < Figures.Count; i++) {
-                this.Figures.Add(new CustomFigure(Figures[i]));
+                this.Figures.Add(new ThumbnailFigureViewModel(Figures[i]));
                 this.Figures.Last().PropertyChanged += FigureUpdated;
             }
             this.Figures[0].IsSelected = true;
@@ -69,12 +51,11 @@ namespace WPF_Cross.ViewModels
 
         private void FigureUpdated(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (((CustomFigure)sender).IsSelected)
+            if (((ThumbnailFigureViewModel)sender).IsSelected)
             {
-                if(lastSelected>=0)Figures[lastSelected].IsSelected = false;
-                lastSelected = 0;
+                if(LastSelected >= 0)Figures[LastSelected].IsSelected = false;
                 for (int i = 0; i < Figures.Count; i++)
-                    if (Figures[i].IsSelected) lastSelected = i;
+                    if (Figures[i].IsSelected) LastSelected = i;
             }
         }
     }

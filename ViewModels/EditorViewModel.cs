@@ -36,6 +36,28 @@ namespace WPF_Cross.ViewModels
             Squares.init("squares.txt", 50);
             Sets.init("sets.txt", 50);
             Arrows.init("arrows.txt", 50);
+
+            Squares.PropertyChanged += SelectedSquareUpdated;
+            Sets.PropertyChanged += SelectedSetUpdated;
+            Arrows.PropertyChanged += SelectedArrowUpdated;
+        }
+
+        private void SelectedArrowUpdated(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            Data.ArrowIndex = Arrows.LastSelected;
+            eventAggregator.GetEvent<FormDataChanges>().Publish(Data);
+        }
+
+        private void SelectedSetUpdated(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            Data.SetIndex = Sets.LastSelected;
+            eventAggregator.GetEvent<FormDataChanges>().Publish(Data);
+        }
+
+        private void SelectedSquareUpdated(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            Data.SquareIndex = Squares.LastSelected;
+            eventAggregator.GetEvent<FormDataChanges>().Publish(Data);
         }
 
         private void Data_Updated(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -43,7 +65,7 @@ namespace WPF_Cross.ViewModels
             if (PreserveSquareRatio) Data.SquareHeight = Data.SquareWidth;
             if (PreserveSetRatio) Data.SetHeight = Data.SetWidth;
             if (PreserveArrowRatio) Data.ArrowHeight = Data.ArrowWidth;
-            eventAggregator.GetEvent<FormDataChanges>().Publish(Data);
+            eventAggregator.GetEvent<FormDataChanges>().Publish((FormData)Data.Clone());
         }
     }
 }
