@@ -54,12 +54,12 @@
 
                         <TextBlock FontSize="16">
                             <Run Text="Width:  "></Run>
-                            <Run Text="12"></Run>
+                            <Run Text="{Binding ActualSizes.SquareWidth}"></Run>
                             <Run Text="mm"></Run>
                         </TextBlock>
                         <TextBlock FontSize="16">
                             <Run Text="Height: "></Run>
-                            <Run Text="12"></Run>
+                            <Run Text="{Binding ActualSizes.SquareHeight}"></Run>
                             <Run Text="mm"></Run>
                         </TextBlock>
 
@@ -104,12 +104,12 @@
 
                         <TextBlock FontSize="16">
                             <Run Text="Width:  "></Run>
-                            <Run Text="12"></Run>
+                            <Run Text="{Binding ActualSizes.SetWidth}"></Run>
                             <Run Text="mm"></Run>
                         </TextBlock>
                         <TextBlock FontSize="16">
                             <Run Text="Height: "></Run>
-                            <Run Text="12"></Run>
+                            <Run Text="{Binding ActualSizes.SetHeight}"></Run>
                             <Run Text="mm"></Run>
                         </TextBlock>
 
@@ -154,12 +154,12 @@
 
                         <TextBlock FontSize="16">
                             <Run Text="Width:  "></Run>
-                            <Run Text="12"></Run>
+                            <Run Text="{Binding ActualSizes.ArrowWidth}"></Run>
                             <Run Text="mm"></Run>
                         </TextBlock>
                         <TextBlock FontSize="16">
                             <Run Text="Height: "></Run>
-                            <Run Text="12"></Run>
+                            <Run Text="{Binding ActualSizes.ArrowHeight}"></Run>
                             <Run Text="mm"></Run>
                         </TextBlock>
 

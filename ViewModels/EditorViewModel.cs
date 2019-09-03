@@ -5,15 +5,25 @@ using Cross.Services;
 using Prism.Events;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace WPF_Cross.ViewModels
 {
-    public class EditorViewModel
+    public class EditorViewModel : INotifyPropertyChanged
     {
         public FormData Data { get; set; }
+        private SizePackage actualSizes;
+        public SizePackage ActualSizes {
+            get => actualSizes;
+            set
+            {
+                actualSizes = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ActualSizes"));
+            }
+        }
         public bool PreserveSquareRatio { get; set; } = true;
         public bool PreserveSetRatio { get; set; } = true;
         public bool PreserveArrowRatio { get; set; } = true;
@@ -22,6 +32,8 @@ namespace WPF_Cross.ViewModels
         public ThumbnailViewModel Arrows { get; set; }
 
         private IEventAggregator eventAggregator;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public EditorViewModel(IEventAggregator eventAggregator)
         {
@@ -40,6 +52,13 @@ namespace WPF_Cross.ViewModels
             Squares.PropertyChanged += SelectedSquareUpdated;
             Sets.PropertyChanged += SelectedSetUpdated;
             Arrows.PropertyChanged += SelectedArrowUpdated;
+
+            eventAggregator.GetEvent<SizeChanges>().Subscribe(HandleSizeChanges);
+        }
+
+        private void HandleSizeChanges(SizePackage data)
+        {
+            ActualSizes = (SizePackage)data.Clone();
         }
 
         private void SelectedArrowUpdated(object sender, System.ComponentModel.PropertyChangedEventArgs e)

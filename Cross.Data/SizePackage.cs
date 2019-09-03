@@ -8,15 +8,16 @@ namespace Cross.Data
 {
     public class SizePackage : ICloneable
     {
-        public int SquareWidth { get; set; } = 100;
-        public int SquareHeight { get; set; } = 100;
+        public double SquareWidth { get; set; }
+        public double SquareHeight { get; set; }
 
-        public int SetWidth { get; set; } = 100;
-        public int SetHeight { get; set; } = 100;
+        public double SetWidth { get; set; }
+        public double SetHeight { get; set; }
 
-        public int ArrowWidth { get; set; } = 100;
-        public int ArrowHeight { get; set; } = 100;
+        public double ArrowWidth { get; set; }
+        public double ArrowHeight { get; set; }
 
+        public SizePackage(){ }
         public SizePackage(SizePackage data)
         {
             SquareHeight = data.SquareHeight;
