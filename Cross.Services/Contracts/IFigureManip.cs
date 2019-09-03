@@ -14,7 +14,10 @@ namespace Cross.Services.Contracts
         Figure Scale(Figure figure, double xCoef, double yCoef);
         Figure UniformScale(Figure figure, double xCoef, double yCoef);
         Figure Translate(Figure figure, double x, double y);
+        Figure NormalizeTranslate(Figure figure);
         Point FindCenterOfMass(Figure figure);
         Point FindCenterOfBound(Figure figure);
+        double Width(Figure figure);
+        double Height(Figure figure);
     }
 }

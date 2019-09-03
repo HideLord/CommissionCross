@@ -74,7 +74,7 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <ToggleButton Padding="15" IsChecked="{Binding IsSelected, Mode=TwoWay}" Width="{Binding ThumbnailSize}" Height="{Binding ThumbnailSize}">
+                                    <ToggleButton Padding="15" IsChecked="{Binding IsSelected}" Width="{Binding ThumbnailSize}" Height="{Binding ThumbnailSize}">
                                         <Path Data="{Binding FigureObj.Points, Converter={StaticResource ResourceKey=PointsToPath}}">
                                             <Path.Style>
                                                 <Style TargetType="Path">

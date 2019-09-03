@@ -122,6 +122,22 @@ namespace Cross.Services
             return scaledFigure;
         }
 
+        public Figure NormalizeTranslate(Figure figure)
+        {
+            var normalizedFig = (Figure)figure.Clone();
+            double minX = 1000000, minY = 10000000;
+            foreach (var p in normalizedFig.Points)
+            {
+                minX = Math.Min(minX, p.X);
+                minY = Math.Min(minY, p.Y);
+            }
+            for (int j = 0; j < normalizedFig.Points.Count; j++)
+            {
+                normalizedFig.Points[j].X -= minX;
+                normalizedFig.Points[j].Y -= minY;
+            }
+            return normalizedFig;
+        }
         public List<Figure> Normalize(List<Figure> figures, double defaultSide)
         {
             List<Figure> newFigures = new List<Figure>();
@@ -157,5 +173,29 @@ namespace Cross.Services
 
             return newFigures;
         }
+
+        public double Width(Figure figure)
+        {
+            double minX = 1000000, maxX = -1000000;
+            foreach (var p in figure.Points)
+            {
+                minX = Math.Min(minX, p.X);
+                maxX = Math.Max(maxX, p.X);
+            }
+            return maxX - minX;
+        }
+
+        public double Height(Figure figure)
+        {
+            double minY = 1000000, maxY = -1000000;
+            foreach (var p in figure.Points)
+            {
+                minY = Math.Min(minY, p.Y);
+                maxY = Math.Max(maxY, p.Y);
+            }
+            return maxY - minY;
+        }
+
+        
     }
 }

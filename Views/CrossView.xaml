@@ -71,7 +71,7 @@
                         <Path Data="{Binding Points, Converter={StaticResource ResourceKey=PointsToPath}}">
                             <Path.Style>
                                 <Style TargetType="Path">
-                                    <Setter Property="StrokeThickness" Value="1"/>
+                                    <Setter Property="StrokeThickness" Value="2"/>
                                     <Setter Property="Stroke" Value="Black"/>
 
                                     <Setter Property="Fill" Value="{Binding DataContext.Data.SquareColor, ElementName=GridContainer, Converter={StaticResource ColorToBrush}}"/>

@@ -25,6 +25,7 @@ namespace WPF_Cross.ViewModels
         private FormData prevData, data;
 
         private int padding = 15;
+        private double arrowDefaultCoef = 0.23;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -63,13 +64,32 @@ namespace WPF_Cross.ViewModels
 
             AllSquares = figureManip.Normalize(AllSquares, DefaultSide);
             AllSets = figureManip.Normalize(AllSets, DefaultSide);
-            AllArrows = figureManip.Normalize(AllArrows, DefaultSide);
+            AllArrows = figureManip.Normalize(AllArrows, DefaultSide*arrowDefaultCoef);
 
             prevData.SquareIndex = prevData.SetIndex = prevData.ArrowIndex = -1;
 
             updateAll();
 
             eventAggregator.GetEvent<FormDataChanges>().Subscribe(handleFormDataChanges);
+        }
+
+        private void repositionArrows()
+        {
+            double delta = 0.05;
+
+            if (Arrows.Count < 4) throw new System.IndexOutOfRangeException();
+
+            Arrows[0] = figureManip.Rotate((Figure)AllArrows[data.ArrowIndex].Clone(), figureManip.FindCenterOfBound(Arrows[0]), 90);
+            Arrows[0] = figureManip.NormalizeTranslate(Arrows[0]);
+            Arrows[0] = figureManip.Translate(Arrows[0], padding + (0.5 + data.SquareWidth / 200.0 + delta) * DefaultSide, padding + (data.SquareHeight / 600.0) * DefaultSide);
+
+            Arrows[1] = figureManip.Rotate((Figure)AllArrows[data.ArrowIndex].Clone(), figureManip.FindCenterOfBound(Arrows[1]), 90);
+            Arrows[1] = figureManip.NormalizeTranslate(Arrows[1]);
+            Arrows[1] = figureManip.Translate(Arrows[1], padding + 2.5 * DefaultSide - figureManip.Width(Arrows[1]) / 2, padding + (0.5 + data.SquareHeight / 200.0 + delta) * DefaultSide);
+
+            Arrows[2] = figureManip.Translate((Figure)AllArrows[data.ArrowIndex].Clone(), padding + (data.SquareWidth / 600.0) * DefaultSide, padding + (0.5 + data.SquareHeight / 200.0 + delta) * DefaultSide);
+
+            Arrows[3] = figureManip.Translate((Figure)AllArrows[data.ArrowIndex].Clone(), padding + (0.5 + data.SquareWidth / 200.0 + delta) * DefaultSide, padding + (2 + data.SquareHeight / 600.0) * DefaultSide);
         }
 
         private void updateRotation()
@@ -102,15 +122,26 @@ namespace WPF_Cross.ViewModels
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    if (prevData.SquareHeight != Data.SquareHeight || prevData.SquareWidth != Data.SquareWidth || prevData.SquareIndex != Data.SquareIndex) 
+                    if (prevData.SquareHeight != Data.SquareHeight || prevData.SquareWidth != Data.SquareWidth || prevData.SquareIndex != Data.SquareIndex)
+                    {
+                        Squares[i * 3 + j] = figureManip.UniformScale(Squares[i * 3 + j], 100.0 / (double)prevData.SquareWidth, 100.0 / (double)prevData.SquareHeight);
                         Squares[i * 3 + j] = figureManip.UniformScale(Squares[i * 3 + j], (double)Data.SquareWidth / 100.0, (double)Data.SquareHeight / 100.0);
+                    }
                     if (prevData.SetHeight != Data.SetHeight || prevData.SetWidth != Data.SetWidth || prevData.SetIndex != Data.SetIndex)
+                    {
+                        Sets[i * 3 + j] = figureManip.UniformScale(Sets[i * 3 + j], 100.0/(double)prevData.SetWidth, 100.0 / (double)prevData.SetHeight);
                         Sets[i * 3 + j] = figureManip.UniformScale(Sets[i * 3 + j], (double)Data.SetWidth / 100.0, (double)Data.SetHeight / 100.0);
+                    }
                     
                 }
             }
             if (prevData.ArrowHeight != Data.ArrowHeight || prevData.ArrowWidth != Data.ArrowWidth || prevData.ArrowIndex != Data.ArrowIndex)
-                for (int i = 0; i < 4; i++)Arrows[i] = figureManip.UniformScale(Arrows[i], (double)Data.ArrowWidth / 100.0, (double)Data.ArrowHeight / 100.0);
+                for (int i = 0; i < 4; i++)
+                {
+                    Arrows[i] = figureManip.UniformScale(Arrows[i], 100.0 / (double)prevData.ArrowWidth, 100.0 / (double)Data.ArrowHeight);
+                    Arrows[i] = figureManip.UniformScale(Arrows[i], (double)Data.ArrowWidth / 100.0, (double)Data.ArrowHeight / 100.0);
+                }
+            repositionArrows();
         }
 
         private void updateType()
@@ -152,10 +183,9 @@ namespace WPF_Cross.ViewModels
             {
                 Arrows.Clear();
                 for (int i = 0; i < 4; i++)
-                {
                     Arrows.Add((Figure)AllArrows[Data.ArrowIndex].Clone());
-                }
             }
+            repositionArrows();
         }
 
         private void updateAll()
@@ -167,8 +197,9 @@ namespace WPF_Cross.ViewModels
 
         private void handleFormDataChanges(FormData data)
         {
-            this.Data = data;
+            this.Data = (FormData)data.Clone();
             updateAll();
+            prevData = (FormData)data.Clone();
         }
     }
 }
