@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Autofac;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF_Cross.ViewModels;
 
 namespace WPF_Cross.Views
 {
@@ -23,6 +25,7 @@ namespace WPF_Cross.Views
         public CrossView()
         {
             InitializeComponent();
+            this.DataContext = Bootstrapper.Container.Resolve<CrossViewModel>();
         }
     }
 }

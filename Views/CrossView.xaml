@@ -4,11 +4,84 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WPF_Cross.Views"
+      xmlns:converters="clr-namespace:WPF_Cross.Functional.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="CrossView">
 
-    <Grid>
-        
+    <Page.Resources>
+        <converters:PointsToPath x:Key="PointsToPath"/>
+        <converters:ColorToBrush x:Key="ColorToBrush"/>
+    </Page.Resources>
+
+    <Grid x:Name="GridContainer">
+        <Viewbox>
+            <ItemsControl ItemsSource="{Binding Sets}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Width="{Binding DataContext.FullSize, ElementName=GridContainer}" Height="{Binding DataContext.FullSize, ElementName=GridContainer}" HorizontalAlignment="Stretch"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Path Data="{Binding Points, Converter={StaticResource ResourceKey=PointsToPath}}">
+                            <Path.Style>
+                                <Style TargetType="Path">
+                                    <Setter Property="StrokeThickness" Value="1"/>
+                                    <Setter Property="Stroke" Value="Black"/>
+                                    <Setter Property="Fill" Value="{Binding DataContext.Data.SetColor, ElementName=GridContainer, Converter={StaticResource ColorToBrush}}"/>
+                                </Style>
+                            </Path.Style>
+                        </Path>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Viewbox>
+        <Viewbox>
+            <ItemsControl ItemsSource="{Binding Arrows}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Width="{Binding DataContext.FullSize, ElementName=GridContainer}" Height="{Binding DataContext.FullSize, ElementName=GridContainer}" HorizontalAlignment="Stretch"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Path Data="{Binding Points, Converter={StaticResource ResourceKey=PointsToPath}}">
+                            <Path.Style>
+                                <Style TargetType="Path">
+                                    <Setter Property="StrokeThickness" Value="0"/>
+                                    <Setter Property="Stroke" Value="Black"/>
+                                    <Setter Property="Fill" Value="{Binding DataContext.Data.ArrowColor, ElementName=GridContainer, Converter={StaticResource ColorToBrush}}"/>
+                                </Style>
+                            </Path.Style>
+                        </Path>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Viewbox>
+        <Viewbox>
+            <ItemsControl ItemsSource="{Binding Squares}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Width="{Binding DataContext.FullSize, ElementName=GridContainer}" Height="{Binding DataContext.FullSize, ElementName=GridContainer}" HorizontalAlignment="Stretch"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Path Data="{Binding Points, Converter={StaticResource ResourceKey=PointsToPath}}">
+                            <Path.Style>
+                                <Style TargetType="Path">
+                                    <Setter Property="StrokeThickness" Value="1"/>
+                                    <Setter Property="Stroke" Value="Black"/>
+
+                                    <Setter Property="Fill" Value="{Binding DataContext.Data.SquareColor, ElementName=GridContainer, Converter={StaticResource ColorToBrush}}"/>
+
+                                </Style>
+                            </Path.Style>
+                        </Path>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Viewbox>
     </Grid>
 </Page>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Cross.Data
 {
@@ -24,6 +25,10 @@ namespace Cross.Data
         public int SetIndex { get; set; } = 0;
         public int ArrowIndex { get; set; } = 0;
 
+        public Color SquareColor { get; set; } = Colors.White;
+        public Color SetColor { get; set; } = Colors.White;
+        public Color ArrowColor { get; set; } = Colors.Black;
+
         public object Clone()
         {
             var newData = new FormData();
@@ -38,6 +43,9 @@ namespace Cross.Data
             newData.ArrowIndex = ArrowIndex;
             newData.SquareRotation = SquareRotation;
             newData.SetRotation = SetRotation;
+            newData.SquareColor = SquareColor;
+            newData.SetColor = SetColor;
+            newData.ArrowColor = ArrowColor;
             return newData;
         }
     }

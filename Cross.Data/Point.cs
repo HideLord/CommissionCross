@@ -17,10 +17,10 @@ namespace Cross.Data
             Y = y;
         }
 
-        public Point(Point P)
+        public Point(Point p)
         {
-            X = P.X;
-            Y = P.Y;
+            X = p.X;
+            Y = p.Y;
         }
 
         public object Clone()

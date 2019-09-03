@@ -29,6 +29,7 @@ namespace Cross.Services
 
         public Point FindCenterOfBound(Figure figure)
         {
+            if (figure.Points.Count == 0) return new Point(0,0);
             Point center = new Point(0, 0);
             double minX = figure.Points[0].X, maxX = figure.Points[0].X, minY = figure.Points[0].Y, maxY = figure.Points[0].Y;
             foreach (var p in figure.Points)
@@ -45,6 +46,7 @@ namespace Cross.Services
 
         public Point FindCenterOfMass(Figure figure)
         {
+            if (figure.Points.Count == 0) return new Point(0, 0);
             Point center = new Point(0, 0);
             foreach (var p in figure.Points)
             {
@@ -58,6 +60,8 @@ namespace Cross.Services
 
         public Figure Rotate(Figure figure, Point origin, double angle)
         {
+            if (figure.Points.Count == 0) return figure;
+
             Figure rotatedFig = (Figure)figure.Clone();
 
             for(int i = 0; i < rotatedFig.Points.Count; i++)
@@ -70,6 +74,8 @@ namespace Cross.Services
 
         public Figure Translate(Figure figure, double x, double y)
         {
+            if (figure.Points.Count == 0) return figure;
+
             Figure translatedFigure = (Figure)figure.Clone();
 
             for (int i = 0; i < translatedFigure.Points.Count; i++)
@@ -83,6 +89,8 @@ namespace Cross.Services
 
         public Figure Scale(Figure figure, double xCoef, double yCoef)
         {
+            if (figure.Points.Count == 0) return figure;
+
             Figure scaledFigure = (Figure)figure.Clone();
 
             for (int i = 0; i < scaledFigure.Points.Count; i++)
@@ -95,6 +103,8 @@ namespace Cross.Services
         }
         public Figure UniformScale(Figure figure, double xCoef, double yCoef)
         {
+            if (figure.Points.Count == 0) return figure;
+
             Figure scaledFigure = (Figure)figure.Clone();
 
             Point origin = FindCenterOfBound(scaledFigure);

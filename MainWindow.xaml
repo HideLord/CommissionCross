@@ -9,6 +9,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.5*"/>
+
+        </Grid.ColumnDefinitions>
+
         <Frame Source="Views/EditorView.xaml"></Frame>
+        <GridSplitter Grid.Column="1" Grid.ColumnSpan="1" Width="5" HorizontalAlignment="Stretch" />
+        <Frame Grid.Column="2" Source="Views/CrossView.xaml"></Frame>
     </Grid>
 </Controls:MetroWindow>

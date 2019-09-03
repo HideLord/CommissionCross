@@ -20,7 +20,7 @@ namespace Cross.Data
             var clone = new Figure();
             foreach(var p in Points)
             {
-                clone.Points.Add(p);
+                clone.Points.Add((Point)p.Clone());
             }
             return clone;
         }

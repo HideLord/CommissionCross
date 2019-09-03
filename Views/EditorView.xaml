@@ -63,7 +63,7 @@
                             <Run Text="mm"></Run>
                         </TextBlock>
 
-                        <xctk:ColorPicker x:Name="squareColorPick" ShowAvailableColors="False" Margin="0 15" HorizontalAlignment="Left" Width="120"/>
+                        <xctk:ColorPicker x:Name="squareColorPick" SelectedColor="{Binding Path=Data.SquareColor}" ShowAvailableColors="False" Margin="0 15" HorizontalAlignment="Left" Width="120"/>
 
                         <Separator Margin="0 20"></Separator>
                         <ItemsControl ItemsSource="{Binding Squares.Figures}">
@@ -113,7 +113,7 @@
                             <Run Text="mm"></Run>
                         </TextBlock>
 
-                        <xctk:ColorPicker x:Name="setColorPick" ShowAvailableColors="False" Margin="0 15" HorizontalAlignment="Left" Width="120"/>
+                        <xctk:ColorPicker x:Name="setColorPick" SelectedColor="{Binding Path=Data.SetColor}" ShowAvailableColors="False" Margin="0 15" HorizontalAlignment="Left" Width="120"/>
 
                         <Separator Margin="0 20"></Separator>
 
@@ -163,7 +163,7 @@
                             <Run Text="mm"></Run>
                         </TextBlock>
 
-                        <xctk:ColorPicker x:Name="arrowColorPick" ShowAvailableColors="False" Margin="0 15" HorizontalAlignment="Left" Width="120"/>
+                        <xctk:ColorPicker x:Name="arrowColorPick" SelectedColor="{Binding Path=Data.ArrowColor}" ShowAvailableColors="False" Margin="0 15" HorizontalAlignment="Left" Width="120"/>
 
                         <Separator Margin="0 20"></Separator>
 

@@ -1,5 +1,4 @@
-﻿using Cross.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -10,22 +9,12 @@ using System.Windows.Media;
 
 namespace WPF_Cross.Functional.Converters
 {
-    public class PointsToPath : IValueConverter
+    class ColorToBrush : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            StringBuilder data = new StringBuilder("M");
-            List<Point> points = (List<Point>)value;
-            
-            for (int i = 0; i < points.Count; i++)
-            {
-                data.Append(points[i].X.ToString());
-                data.Append(",");
-                data.Append(points[i].Y.ToString());
-                data.Append((i != (points.Count - 1) ? " L " : " Z"));
-            }
-
-            return data.ToString();
+            var brush = new SolidColorBrush((Color)value);
+            return brush;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

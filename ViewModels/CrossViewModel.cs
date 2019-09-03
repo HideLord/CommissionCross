@@ -5,13 +5,14 @@ using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace WPF_Cross.ViewModels
 {
-    public class CrossViewModel : BaseNotify
+    public class CrossViewModel : INotifyPropertyChanged
     {
         private readonly IFigureManip figureManip;
         private readonly ILoadFiguresService loader;
@@ -21,9 +22,22 @@ namespace WPF_Cross.ViewModels
         private List<Figure> AllSets;
         private List<Figure> AllArrows;
 
-        private FormData prevData;
-        private FormData data;
+        private FormData prevData, data;
 
+        private int padding = 15;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public FormData Data {
+            get => data;
+            set
+            {
+                data = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Data"));
+            }
+        }
+        public int FullSize { get; set; }
+        public int DefaultSide { get; set; } = 50;
         public ObservableCollection<Figure> Squares { get; set; }
         public ObservableCollection<Figure> Sets { get; set; }
         public ObservableCollection<Figure> Arrows { get; set; }
@@ -37,6 +51,8 @@ namespace WPF_Cross.ViewModels
             this.loader = loader;
             this.eventAggregator = eventAggregator;
 
+            this.FullSize = 3 * DefaultSide + 2 * padding;
+
             Squares = new ObservableCollection<Figure>();
             Sets = new ObservableCollection<Figure>();
             Arrows = new ObservableCollection<Figure>();
@@ -44,6 +60,10 @@ namespace WPF_Cross.ViewModels
             AllSquares = loader.LoadFigures("squares.txt");
             AllSets = loader.LoadFigures("sets.txt");
             AllArrows = loader.LoadFigures("arrows.txt");
+
+            AllSquares = figureManip.Normalize(AllSquares, DefaultSide);
+            AllSets = figureManip.Normalize(AllSets, DefaultSide);
+            AllArrows = figureManip.Normalize(AllArrows, DefaultSide);
 
             prevData.SquareIndex = prevData.SetIndex = prevData.ArrowIndex = -1;
 
@@ -58,19 +78,19 @@ namespace WPF_Cross.ViewModels
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    if (prevData.SquareRotation != data.SquareRotation || prevData.SquareIndex != data.SquareIndex)
+                    if (prevData.SquareRotation != Data.SquareRotation || prevData.SquareIndex != Data.SquareIndex)
                     {
                         Squares[i * 3 + j] = figureManip.Rotate(
                             Squares[i * 3 + j],
                             figureManip.FindCenterOfBound(Squares[i * 3 + j]),
-                            data.SquareRotation);
+                            Data.SquareRotation);
                     }
-                    if (prevData.SetRotation != data.SetRotation || prevData.SetIndex != data.SetIndex)
+                    if (prevData.SetRotation != Data.SetRotation || prevData.SetIndex != Data.SetIndex)
                     {
                         Sets[i * 3 + j] = figureManip.Rotate(
                             Sets[i * 3 + j],
                             figureManip.FindCenterOfBound(Sets[i * 3 + j]),
-                            data.SetRotation);
+                            Data.SetRotation);
                     }
                 }
             }
@@ -82,41 +102,58 @@ namespace WPF_Cross.ViewModels
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    if (prevData.SquareHeight != data.SquareHeight || prevData.SquareWidth != data.SquareWidth || prevData.SquareIndex != data.SquareIndex) 
-                        Squares[i * 3 + j] = figureManip.UniformScale(Squares[i * 3 + j], (double)data.SquareWidth / 100.0, (double)data.SquareHeight / 100.0);
-                    if (prevData.SetHeight != data.SetHeight || prevData.SetWidth != data.SetWidth || prevData.SetIndex != data.SetIndex)
-                        Sets[i * 3 + j] = figureManip.UniformScale(Sets[i * 3 + j], (double)data.SetWidth / 100.0, (double)data.SetHeight / 100.0);
+                    if (prevData.SquareHeight != Data.SquareHeight || prevData.SquareWidth != Data.SquareWidth || prevData.SquareIndex != Data.SquareIndex) 
+                        Squares[i * 3 + j] = figureManip.UniformScale(Squares[i * 3 + j], (double)Data.SquareWidth / 100.0, (double)Data.SquareHeight / 100.0);
+                    if (prevData.SetHeight != Data.SetHeight || prevData.SetWidth != Data.SetWidth || prevData.SetIndex != Data.SetIndex)
+                        Sets[i * 3 + j] = figureManip.UniformScale(Sets[i * 3 + j], (double)Data.SetWidth / 100.0, (double)Data.SetHeight / 100.0);
                     
                 }
             }
-            if (prevData.ArrowHeight != data.ArrowHeight || prevData.ArrowWidth != data.ArrowWidth || prevData.ArrowIndex != data.ArrowIndex)
-                for (int i = 0; i < 4; i++)Arrows[i] = figureManip.UniformScale(Arrows[i], (double)data.ArrowWidth / 100.0, (double)data.ArrowHeight / 100.0);
+            if (prevData.ArrowHeight != Data.ArrowHeight || prevData.ArrowWidth != Data.ArrowWidth || prevData.ArrowIndex != Data.ArrowIndex)
+                for (int i = 0; i < 4; i++)Arrows[i] = figureManip.UniformScale(Arrows[i], (double)Data.ArrowWidth / 100.0, (double)Data.ArrowHeight / 100.0);
         }
 
         private void updateType()
         {
-            if (prevData.SquareIndex != data.SquareIndex)
+            if (prevData.SquareIndex != Data.SquareIndex)
             {
                 Squares.Clear();
                 for (int i = 0; i < 9; i++)
                 {
-                    Squares.Add((Figure)AllSquares[prevData.SquareIndex].Clone());
+                    Squares.Add((Figure)AllSquares[Data.SquareIndex].Clone());
+
+                    if (i == 0 || i == 2 || i == 6)
+                    {
+                        int row = i / 3;
+                        int col = i % 3;
+
+                        Squares[i] = figureManip.Translate(Squares.Last(), row * DefaultSide + padding, col * DefaultSide + padding);
+                    }
+                    else
+                    {
+                        Squares[i].Points.Clear();
+                    }
                 }
             }
-            if (prevData.SetIndex != data.SetIndex)
+            if (prevData.SetIndex != Data.SetIndex)
             {
                 Sets.Clear();
                 for (int i = 0; i < 9; i++)
                 {
-                    Sets.Add((Figure)AllSets[prevData.SetIndex].Clone());
+                    Sets.Add((Figure)AllSets[Data.SetIndex].Clone());
+
+                    int row = i / 3;
+                    int col = i % 3;
+
+                    Sets[i] = figureManip.Translate(Sets.Last(), row * DefaultSide + padding, col * DefaultSide + padding);
                 }
             }
-            if (prevData.ArrowIndex != data.ArrowIndex)
+            if (prevData.ArrowIndex != Data.ArrowIndex)
             {
                 Arrows.Clear();
                 for (int i = 0; i < 4; i++)
                 {
-                    Arrows.Add((Figure)AllArrows[prevData.ArrowIndex].Clone());
+                    Arrows.Add((Figure)AllArrows[Data.ArrowIndex].Clone());
                 }
             }
         }
@@ -130,7 +167,7 @@ namespace WPF_Cross.ViewModels
 
         private void handleFormDataChanges(FormData data)
         {
-            this.data = data;
+            this.Data = data;
             updateAll();
         }
     }
