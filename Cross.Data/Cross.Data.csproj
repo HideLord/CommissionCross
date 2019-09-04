@@ -54,6 +54,7 @@
     <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SizePackage.cs" />
+    <Compile Include="TemplateFormData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

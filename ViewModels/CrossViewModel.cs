@@ -1,4 +1,5 @@
-﻿using Cross.Aggregator;
+﻿#define ACTUAL_HEIGHT
+using Cross.Aggregator;
 using Cross.Data;
 using Cross.Services.Contracts;
 using Prism.Events;
@@ -80,18 +81,39 @@ namespace WPF_Cross.ViewModels
             double delta = 0.05;
 
             if (Arrows.Count < 4) throw new System.IndexOutOfRangeException();
-            
+#if ACTUAL_HEIGHT
+
+            double sqHeight = figureManip.Height(Squares[0]);
+            double sqWidth = figureManip.Width(Squares[0]);
+
+            Arrows[0] = figureManip.Rotate(Arrows[0], figureManip.FindCenterOfBound(Arrows[0]), 90);
+            Arrows[0] = figureManip.NormalizeTranslate(Arrows[0]);
+            Arrows[0] = figureManip.Translate(Arrows[0], padding + (0.5 + delta) * DefaultSide + sqWidth / 2, padding + sqHeight/6);
+
+            Arrows[1] = figureManip.Rotate(Arrows[1], figureManip.FindCenterOfBound(Arrows[1]), 90);
+            Arrows[1] = figureManip.NormalizeTranslate(Arrows[1]);
+            Arrows[1] = figureManip.Translate(Arrows[1], padding + 2.5 * DefaultSide - figureManip.Width(Arrows[1]) / 2, padding + (0.5 + delta) * DefaultSide + sqHeight/2);
+
+            Arrows[2] = figureManip.NormalizeTranslate(Arrows[2]);
+            Arrows[2] = figureManip.Translate(Arrows[2], padding + sqWidth/6, padding + (0.5 + delta) * DefaultSide + sqHeight/2);
+
+            Arrows[3] = figureManip.NormalizeTranslate(Arrows[3]);
+            Arrows[3] = figureManip.Translate(Arrows[3], padding + (0.5+ delta) * DefaultSide + sqWidth/2, padding + (2) * DefaultSide + sqHeight/6);
+#else
+            Arrows[0] = figureManip.Rotate(Arrows[0], figureManip.FindCenterOfBound(Arrows[0]), 90);
             Arrows[0] = figureManip.NormalizeTranslate(Arrows[0]);
             Arrows[0] = figureManip.Translate(Arrows[0], padding + (0.5 + data.SquareWidth / 200.0 + delta) * DefaultSide, padding + (data.SquareHeight / 600.0) * DefaultSide);
 
+            Arrows[1] = figureManip.Rotate(Arrows[1], figureManip.FindCenterOfBound(Arrows[1]), 90);
             Arrows[1] = figureManip.NormalizeTranslate(Arrows[1]);
             Arrows[1] = figureManip.Translate(Arrows[1], padding + 2.5 * DefaultSide - figureManip.Width(Arrows[1]) / 2, padding + (0.5 + data.SquareHeight / 200.0 + delta) * DefaultSide);
 
             Arrows[2] = figureManip.NormalizeTranslate(Arrows[2]);
-            Arrows[2] = figureManip.Translate((Figure)AllArrows[data.ArrowIndex].Clone(), padding + (data.SquareWidth / 600.0) * DefaultSide, padding + (0.5 + data.SquareHeight / 200.0 + delta) * DefaultSide);
+            Arrows[2] = figureManip.Translate(Arrows[2], padding + (data.SquareWidth / 600.0) * DefaultSide, padding + (0.5 + data.SquareHeight / 200.0 + delta) * DefaultSide);
 
             Arrows[3] = figureManip.NormalizeTranslate(Arrows[3]);
-            Arrows[3] = figureManip.Translate((Figure)AllArrows[data.ArrowIndex].Clone(), padding + (0.5 + data.SquareWidth / 200.0 + delta) * DefaultSide, padding + (2 + data.SquareHeight / 600.0) * DefaultSide);
+            Arrows[3] = figureManip.Translate(Arrows[3], padding + (0.5 + data.SquareWidth / 200.0 + delta) * DefaultSide, padding + (2 + data.SquareHeight / 600.0) * DefaultSide);
+#endif
         }
 
         private void updateRotation()
@@ -173,9 +195,6 @@ namespace WPF_Cross.ViewModels
             Arrows.Clear();
             for (int i = 0; i < 4; i++)
                 Arrows.Add((Figure)AllArrows[Data.ArrowIndex].Clone());
-
-            Arrows[0] = figureManip.Rotate((Figure)AllArrows[data.ArrowIndex].Clone(), figureManip.FindCenterOfBound(Arrows[0]), 90);
-            Arrows[1] = figureManip.Rotate((Figure)AllArrows[data.ArrowIndex].Clone(), figureManip.FindCenterOfBound(Arrows[1]), 90);
         }
 
         private void updateAll()

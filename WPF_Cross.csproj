@@ -47,6 +47,9 @@
     <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\MahApps.Metro.1.6.5\lib\net46\MahApps.Metro.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Prism, Version=7.2.0.1367, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>packages\Prism.Core.7.2.0.1367\lib\net45\Prism.dll</HintPath>
     </Reference>
@@ -97,14 +100,19 @@
     <Compile Include="Functional\Bootstrapper.cs" />
     <Compile Include="Functional\Converters\ColorToBrush.cs" />
     <Compile Include="Functional\Converters\PointsToPath.cs" />
+    <Compile Include="Functional\RelayCommand.cs" />
     <Compile Include="UserControls\EditorControl.xaml.cs">
       <DependentUpon>EditorControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\CreateSaveViewModel.cs" />
     <Compile Include="ViewModels\CrossViewModel.cs" />
     <Compile Include="ViewModels\EditorViewModel.cs" />
     <Compile Include="ViewModels\TemplatePanelViewModel.cs" />
     <Compile Include="ViewModels\ThumbnailFigureViewModel.cs" />
     <Compile Include="ViewModels\ThumbnailViewModel.cs" />
+    <Compile Include="Views\CreateSaveView.xaml.cs">
+      <DependentUpon>CreateSaveView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CrossView.xaml.cs">
       <DependentUpon>CrossView.xaml</DependentUpon>
     </Compile>
@@ -127,6 +135,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserControls\EditorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CreateSaveView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

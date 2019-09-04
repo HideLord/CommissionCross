@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,15 +46,20 @@
   <ItemGroup>
     <Compile Include="Contracts\IFigureManip.cs" />
     <Compile Include="Contracts\ILoadFiguresService.cs" />
+    <Compile Include="Contracts\ITemplateService.cs" />
     <Compile Include="FigureManip.cs" />
     <Compile Include="LoadFiguresService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TemplateService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Cross.Data\Cross.Data.csproj">
       <Project>{9B982AAA-F34F-4C74-BDEB-A94CA314F793}</Project>
       <Name>Cross.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
