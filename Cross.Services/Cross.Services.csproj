@@ -46,9 +46,11 @@
   <ItemGroup>
     <Compile Include="Contracts\IFigureManip.cs" />
     <Compile Include="Contracts\ILoadFiguresService.cs" />
+    <Compile Include="Contracts\IProcessService.cs" />
     <Compile Include="Contracts\ITemplateService.cs" />
     <Compile Include="FigureManip.cs" />
     <Compile Include="LoadFiguresService.cs" />
+    <Compile Include="ProcessService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TemplateService.cs" />
   </ItemGroup>

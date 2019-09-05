@@ -18,14 +18,14 @@ using WPF_Cross.ViewModels;
 namespace WPF_Cross.Views
 {
     /// <summary>
-    /// Interaction logic for CreateSaveView.xaml
+    /// Interaction logic for CreateOpenView.xaml
     /// </summary>
-    public partial class CreateSaveView : Page
+    public partial class CreateOpenView : Page
     {
-        public CreateSaveView()
+        public CreateOpenView()
         {
             InitializeComponent();
-            this.DataContext = Bootstrapper.Container.Resolve<SaveTemplateViewModel>();
+            this.DataContext = Bootstrapper.Container.Resolve<CreateOpenViewModel>();
         }
     }
 }

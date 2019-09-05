@@ -1,4 +1,4 @@
-﻿#define ACTUAL_HEIGHT
+﻿#define ACTUAL_SIZE
 using Cross.Aggregator;
 using Cross.Data;
 using Cross.Services.Contracts;
@@ -81,7 +81,7 @@ namespace WPF_Cross.ViewModels
             double delta = 0.05;
 
             if (Arrows.Count < 4) throw new System.IndexOutOfRangeException();
-#if ACTUAL_HEIGHT
+#if ACTUAL_SIZE
 
             double sqHeight = figureManip.Height(Squares[0]);
             double sqWidth = figureManip.Width(Squares[0]);

@@ -12,7 +12,7 @@ using WPF_Cross.Functional;
 
 namespace WPF_Cross.ViewModels
 {
-    public class CreateSaveViewModel
+    public class SaveTemplateViewModel
     {
         private readonly ITemplateService templateService;
         private readonly IEventAggregator eventAggregator;
@@ -31,7 +31,7 @@ namespace WPF_Cross.ViewModels
             eventAggregator.GetEvent<TemplateChanges>().Publish((TemplateFormData)CurrentData.Clone());
         }
 
-        public CreateSaveViewModel(ITemplateService templateService, IEventAggregator eventAggregator)
+        public SaveTemplateViewModel(ITemplateService templateService, IEventAggregator eventAggregator)
         {
             this.templateService = templateService;
             this.eventAggregator = eventAggregator;

@@ -107,12 +107,16 @@
     <Compile Include="UserControls\TemplateButtonControl.xaml.cs">
       <DependentUpon>TemplateButtonControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\CreateSaveViewModel.cs" />
+    <Compile Include="ViewModels\CreateOpenViewModel.cs" />
+    <Compile Include="ViewModels\SaveTemplateViewModel.cs" />
     <Compile Include="ViewModels\CrossViewModel.cs" />
     <Compile Include="ViewModels\EditorViewModel.cs" />
     <Compile Include="ViewModels\TemplatePanelViewModel.cs" />
     <Compile Include="ViewModels\ThumbnailFigureViewModel.cs" />
     <Compile Include="ViewModels\ThumbnailViewModel.cs" />
+    <Compile Include="Views\CreateOpenView.xaml.cs">
+      <DependentUpon>CreateOpenView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CreateSaveView.xaml.cs">
       <DependentUpon>CreateSaveView.xaml</DependentUpon>
     </Compile>
@@ -142,6 +146,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\TemplateButtonControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CreateOpenView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
