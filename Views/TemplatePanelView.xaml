@@ -4,10 +4,35 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WPF_Cross.Views"
+      xmlns:usercontrols="clr-namespace:WPF_Cross.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TemplatePanelView">
-
+    
+    
+    <Page.Resources>
+        
+    </Page.Resources>
+    
+    
     <StackPanel>
+        <Separator Margin="0 20"></Separator>
+        <TextBlock FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center">
+            TEMPLATES
+        </TextBlock>
+        <ItemsControl ItemsSource="{Binding AllTemplates}" Name="MainControl">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <usercontrols:TemplateButtonControl TemplateProp="{Binding}"
+                                                        OnClick="{Binding DataContext.ClickTemplateCommand, ElementName=MainControl}"
+                                                        DeleteCommand="{Binding DataContext.DeleteCommand, ElementName=MainControl}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </StackPanel>
 </Page>

@@ -12,5 +12,6 @@ namespace Cross.Services.Contracts
         List<TemplateFormData> LoadTemplates(string directory);
         void SaveTemplate(FormData data, string templateName, string filePath);
         void SaveTemplate(TemplateFormData template);
+        void DeleteTemplate(TemplateFormData template);
     }
 }

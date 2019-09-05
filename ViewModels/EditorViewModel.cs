@@ -14,7 +14,15 @@ namespace WPF_Cross.ViewModels
 {
     public class EditorViewModel : INotifyPropertyChanged
     {
-        public FormData Data { get; set; }
+        private FormData data;
+        public FormData Data {
+            get => data;
+            set
+            {
+                data = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Data"));
+            }
+        }
         private SizePackage actualSizes;
         public SizePackage ActualSizes {
             get => actualSizes;
@@ -54,6 +62,14 @@ namespace WPF_Cross.ViewModels
             Arrows.PropertyChanged += SelectedArrowUpdated;
 
             eventAggregator.GetEvent<SizeChanges>().Subscribe(HandleSizeChanges);
+            eventAggregator.GetEvent<LoadFromTemplate>().Subscribe(HandleTemplateChanges);
+        }
+
+        private void HandleTemplateChanges(TemplateFormData obj)
+        {
+            Data = (FormData)obj.Data.Clone();
+            Data.PropertyChanged += Data_Updated;
+            eventAggregator.GetEvent<FormDataChanges>().Publish((FormData)Data.Clone());
         }
 
         private void HandleSizeChanges(SizePackage data)
@@ -64,19 +80,19 @@ namespace WPF_Cross.ViewModels
         private void SelectedArrowUpdated(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             Data.ArrowIndex = Arrows.LastSelected;
-            eventAggregator.GetEvent<FormDataChanges>().Publish(Data);
+            eventAggregator.GetEvent<FormDataChanges>().Publish((FormData)Data.Clone());
         }
 
         private void SelectedSetUpdated(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             Data.SetIndex = Sets.LastSelected;
-            eventAggregator.GetEvent<FormDataChanges>().Publish(Data);
+            eventAggregator.GetEvent<FormDataChanges>().Publish((FormData)Data.Clone());
         }
 
         private void SelectedSquareUpdated(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             Data.SquareIndex = Squares.LastSelected;
-            eventAggregator.GetEvent<FormDataChanges>().Publish(Data);
+            eventAggregator.GetEvent<FormDataChanges>().Publish((FormData)Data.Clone());
         }
 
         private void Data_Updated(object sender, System.ComponentModel.PropertyChangedEventArgs e)

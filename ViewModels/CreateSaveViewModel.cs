@@ -28,6 +28,7 @@ namespace WPF_Cross.ViewModels
         private void saveTemplate(object obj)
         {
             templateService.SaveTemplate(CurrentData);
+            eventAggregator.GetEvent<TemplateChanges>().Publish((TemplateFormData)CurrentData.Clone());
         }
 
         public CreateSaveViewModel(ITemplateService templateService, IEventAggregator eventAggregator)

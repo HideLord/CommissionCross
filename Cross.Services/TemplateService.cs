@@ -43,7 +43,15 @@ namespace Cross.Services
             string tempFileName = (template.FilePath + template.TemplateName + ".json");
             string tempFilePath = Path.GetFullPath(Directory.GetCurrentDirectory());
 
-            System.IO.File.WriteAllText(Path.Combine(tempFilePath, tempFileName), content);   
+            File.WriteAllText(Path.Combine(tempFilePath, tempFileName), content);   
+        }
+
+        public void DeleteTemplate(TemplateFormData template)
+        {
+            string tempFileName = (template.FilePath + template.TemplateName + ".json");
+            string tempFilePath = Path.GetFullPath(Directory.GetCurrentDirectory());
+
+            File.Delete(Path.Combine(tempFilePath, tempFileName));
         }
     }
 }
