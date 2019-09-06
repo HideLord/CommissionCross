@@ -49,8 +49,10 @@
   <ItemGroup>
     <Compile Include="FormDataChanges.cs" />
     <Compile Include="LoadFromTemplate.cs" />
+    <Compile Include="ProcessStartRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SizeChanges.cs" />
+    <Compile Include="SquareFigureChanges.cs" />
     <Compile Include="TemplateChanges.cs" />
   </ItemGroup>
   <ItemGroup>

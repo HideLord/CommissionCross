@@ -1,4 +1,6 @@
-﻿using Cross.Services.Contracts;
+﻿using Cross.Aggregator;
+using Cross.Data;
+using Cross.Services.Contracts;
 using Prism.Events;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,8 @@ namespace WPF_Cross.ViewModels
     {
         private readonly IProcessService processService;
         private readonly IEventAggregator eventAggregator;
+
+        private FormData data;
 
         private ICommand startSVGForger;
         public ICommand StartSVGForger
@@ -35,6 +39,17 @@ namespace WPF_Cross.ViewModels
                 return chooseCrossFile;
             }
         }
+        private void updateArgs()
+        {
+            string args = crossFilePath + " " + data.SetIndex.ToString() +
+                        " " + data.SquareIndex.ToString() + " " + data.ArrowIndex.ToString() +
+                        " " + data.SetRotation.ToString() + " " + data.SquareRotation.ToString() +
+                        " " + data.SetWidth.ToString() + " " + data.SetHeight.ToString() +
+                        " " + data.SquareWidth.ToString() + " " + data.SquareHeight.ToString() +
+                        " " + data.ArrowWidth.ToString() + " " + data.ArrowHeight.ToString() +
+                        " " + data.SetColor.ToString() + " " + data.SquareColor.ToString() + " " + data.ArrowColor.ToString();
+            this.processService.SetProcessArgs(args);
+        }
 
         private void handleChooseCrossFile(object obj)
         {
@@ -52,8 +67,17 @@ namespace WPF_Cross.ViewModels
             }
         }
 
+
+        private void handleFormDataChanges(FormData obj)
+        {
+            data = (FormData)obj.Clone();
+            updateArgs();
+        }
+
         private void handleStartSVGForger(object obj)
         {
+            updateArgs();
+            this.eventAggregator.GetEvent<ProcessStartRequest>().Publish(processService);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -72,8 +96,11 @@ namespace WPF_Cross.ViewModels
 
         public CreateOpenViewModel(IProcessService processService, IEventAggregator eventAggregator)
         {
+            this.data = new FormData();
             this.processService = processService;
             this.eventAggregator = eventAggregator;
+            this.eventAggregator.GetEvent<FormDataChanges>().Subscribe(handleFormDataChanges);
         }
+
     }
 }

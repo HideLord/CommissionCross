@@ -10,6 +10,9 @@ namespace Cross.Services.Contracts
 {
     public interface IProcessService
     {
-        StreamWriter SpawnProcess(string filePath, DataReceivedEventHandler handler);
+        void Kill();
+        void SetProcessArgs(string args);
+        void SetHandler(DataReceivedEventHandler handler);
+        StreamWriter SpawnProcess(string filePath);
     }
 }

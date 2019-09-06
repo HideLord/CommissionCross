@@ -204,6 +204,12 @@ namespace WPF_Cross.ViewModels
             updateRotation();
             repositionArrows();
             SendSizeInfo();
+            SendSquareFigure();
+        }
+
+        private void SendSquareFigure()
+        {
+            eventAggregator.GetEvent<SquareFigureChanges>().Publish(Squares[0]);
         }
 
         private void SendSizeInfo()

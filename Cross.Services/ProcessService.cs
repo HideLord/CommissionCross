@@ -12,28 +12,49 @@ namespace Cross.Services
 {
     public class ProcessService : IProcessService
     {
-        public StreamWriter SpawnProcess(string filePath, DataReceivedEventHandler outputHandler)
+        private Process process;
+
+        private string ProcessArgs = "";
+
+        private DataReceivedEventHandler outputHandler = null;
+
+        public void SetHandler(DataReceivedEventHandler handler)
+        {
+            outputHandler = handler;
+        }
+
+        public void SetProcessArgs(string args)
+        {
+            ProcessArgs = args;
+        }
+
+        public void Kill()
+        {
+            process.Kill();
+        }
+
+        public StreamWriter SpawnProcess(string filePath)
         {
 #if DEBUG_OUTPUT
-            Process process;
             process = new Process();
             process.StartInfo.FileName = filePath;
             process.StartInfo.UseShellExecute = false;
             var output = new StringBuilder("");
             process.StartInfo.RedirectStandardInput = true;
-            
+            process.StartInfo.Arguments = this.ProcessArgs;
+
             process.Start();
             StreamWriter writer = process.StandardInput;
             return writer;
 #else
-            Process process;
             process = new Process();
             process.StartInfo.FileName = filePath;
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.RedirectStandardOutput = true;
             process.StartInfo.CreateNoWindow = true;
             var output = new StringBuilder("");
-            process.OutputDataReceived += new DataReceivedEventHandler(outputHandler);
+            process.OutputDataReceived += new DataReceivedEventHandler(this.outputHandler);
+            process.StartInfo.Arguments = this.ProcessArgs;
             process.StartInfo.RedirectStandardInput = true;
 
             process.Start();
@@ -41,6 +62,10 @@ namespace Cross.Services
             process.BeginOutputReadLine();
             return writer;
 #endif
+        }
+        ~ProcessService()
+        {
+            process.Kill();
         }
 
     }

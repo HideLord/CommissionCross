@@ -99,6 +99,7 @@
     </ApplicationDefinition>
     <Compile Include="Functional\Bootstrapper.cs" />
     <Compile Include="Functional\Converters\ColorToBrush.cs" />
+    <Compile Include="Functional\Converters\NewLineToXamlNewLine.cs" />
     <Compile Include="Functional\Converters\PointsToPath.cs" />
     <Compile Include="Functional\RelayCommand.cs" />
     <Compile Include="UserControls\EditorControl.xaml.cs">
@@ -108,12 +109,15 @@
       <DependentUpon>TemplateButtonControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\CreateOpenViewModel.cs" />
+    <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\OptionInFigureViewModel.cs" />
     <Compile Include="ViewModels\SaveTemplateViewModel.cs" />
     <Compile Include="ViewModels\CrossViewModel.cs" />
     <Compile Include="ViewModels\EditorViewModel.cs" />
     <Compile Include="ViewModels\TemplatePanelViewModel.cs" />
     <Compile Include="ViewModels\ThumbnailFigureViewModel.cs" />
     <Compile Include="ViewModels\ThumbnailViewModel.cs" />
+    <Compile Include="ViewModels\UserInteractionViewModel.cs" />
     <Compile Include="Views\CreateOpenView.xaml.cs">
       <DependentUpon>CreateOpenView.xaml</DependentUpon>
     </Compile>
@@ -126,8 +130,14 @@
     <Compile Include="Views\EditorView.xaml.cs">
       <DependentUpon>EditorView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MainPageView.xaml.cs">
+      <DependentUpon>MainPageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TemplatePanelView.xaml.cs">
       <DependentUpon>TemplatePanelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserInteractionView.xaml.cs">
+      <DependentUpon>UserInteractionView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -165,7 +175,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\MainPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\TemplatePanelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserInteractionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
