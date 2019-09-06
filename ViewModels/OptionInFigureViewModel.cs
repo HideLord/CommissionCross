@@ -20,7 +20,7 @@ namespace WPF_Cross.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Square"));
             }
         }
-        private string optionOne;
+        private string optionOne = "";
         public string OptionOne
         {
             get => optionOne;
@@ -30,7 +30,7 @@ namespace WPF_Cross.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("OptionOne"));
             }
         }
-        private string optionTwo;
+        private string optionTwo = "";
         public string OptionTwo
         {
             get => optionTwo;
@@ -38,6 +38,17 @@ namespace WPF_Cross.ViewModels
             {
                 optionTwo = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("OptionTwo"));
+            }
+        }
+
+        private int index = 0;
+        public int Index
+        {
+            get => index;
+            set
+            {
+                index = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Index"));
             }
         }
 

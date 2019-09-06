@@ -102,6 +102,7 @@
     <Compile Include="Functional\Converters\NewLineToXamlNewLine.cs" />
     <Compile Include="Functional\Converters\PointsToPath.cs" />
     <Compile Include="Functional\RelayCommand.cs" />
+    <Compile Include="Functional\ScrollToBottom.cs" />
     <Compile Include="UserControls\EditorControl.xaml.cs">
       <DependentUpon>EditorControl.xaml</DependentUpon>
     </Compile>
