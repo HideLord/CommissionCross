@@ -110,7 +110,7 @@ namespace WPF_Cross.ViewModels
 
             this.eventAggregator.GetEvent<ProcessStartRequest>().Subscribe(handleProcessStart);
             this.eventAggregator.GetEvent<SquareFigureChanges>().Subscribe(handleSquareChanges);
-
+            
             Square = new Figure();
             Options = new List<OptionInFigureViewModel>();
 

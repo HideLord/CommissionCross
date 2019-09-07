@@ -1,5 +1,4 @@
 ﻿using System;
-using PropertyChanged;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Cross.Data
 {
-    [AddINotifyPropertyChangedInterface]
-    public abstract class BaseNotify : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged = (sender,e) => { };
-    }
+    //[AddINotifyPropertyChangedInterface]
+    //public abstract class BaseNotifyDepricated : INotifyPropertyChanged
+    //{
+    //    public event PropertyChangedEventHandler PropertyChanged = (sender,e) => { };
+    //}
 }

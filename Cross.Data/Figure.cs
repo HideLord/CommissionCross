@@ -1,19 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Cross.Data
 {
-    public class Figure : BaseNotify, ICloneable
+    public class Figure : INotifyPropertyChanged, ICloneable
     {
-        public List<Point> Points { get; set; }
+        private List<Point> points; 
+        public List<Point> Points
+        {
+            get => points;
+            set
+            {
+                points = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Points"));
+            }
+        }
 
         public Figure()
         {
             Points = new List<Point>();
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public object Clone()
         {

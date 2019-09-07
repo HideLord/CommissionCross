@@ -1,23 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Cross.Data
 {
-    public class TemplateFormData : BaseNotify, ICloneable
+    public class TemplateFormData : ICloneable, INotifyPropertyChanged
     {
-        public FormData Data { get; set; }
-        public string FilePath { get; set; }
-        public string TemplateName { get; set; }
+        private FormData data;
+        public FormData Data
+        {
+            get => data;
+            set
+            {
+                data = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Data"));
+            }
+        }
+        private string filePath = "";
+        public string FilePath
+        {
+            get => filePath;
+            set
+            {
+                filePath = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("FilePath"));
+            }
+        }
+        private string templateName = "";
+        public string TemplateName
+        {
+            get => templateName;
+            set
+            {
+                templateName = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TemplateName"));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public object Clone()
         {
             var clone = new TemplateFormData();
-            clone.Data = (FormData)Data.Clone();
-            clone.FilePath = (string)FilePath.Clone();
-            clone.TemplateName = (string)TemplateName.Clone();
+            clone.Data = (FormData)data.Clone();
+            clone.FilePath = (string)filePath.Clone();
+            clone.TemplateName = (string)templateName.Clone();
             return clone;
         }
     }

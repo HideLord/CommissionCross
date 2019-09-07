@@ -10,27 +10,47 @@ namespace WPF_Cross.Functional
 {
     public static class ScrollToBottom
     {
-        public static bool GetAutoScroll(DependencyObject obj)
+        public static readonly DependencyProperty AlwaysScrollToEndProperty = DependencyProperty.RegisterAttached("AlwaysScrollToEnd", typeof(bool), typeof(ScrollToBottom), new PropertyMetadata(false, AlwaysScrollToEndChanged));
+        private static bool _autoScroll;
+
+        private static void AlwaysScrollToEndChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            return (bool)obj.GetValue(AutoScrollProperty);
-        }
-
-        public static void SetAutoScroll(DependencyObject obj, bool value)
-        {
-            obj.SetValue(AutoScrollProperty, value);
-        }
-
-        public static readonly DependencyProperty AutoScrollProperty =
-            DependencyProperty.RegisterAttached("AutoScroll", typeof(bool), typeof(ScrollToBottom), new PropertyMetadata(false, AutoScrollPropertyChanged));
-
-        private static void AutoScrollPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var scrollViewer = d as ScrollViewer;
-
-            if (scrollViewer != null && (bool)e.NewValue)
+            ScrollViewer scroll = sender as ScrollViewer;
+            if (scroll != null)
             {
-                scrollViewer.ScrollToBottom();
+                bool alwaysScrollToEnd = (e.NewValue != null) && (bool)e.NewValue;
+                if (alwaysScrollToEnd)
+                {
+                    scroll.ScrollToEnd();
+                    scroll.ScrollChanged += ScrollChanged;
+                }
+                else { scroll.ScrollChanged -= ScrollChanged; }
             }
+            else { throw new InvalidOperationException("The attached AlwaysScrollToEnd property can only be applied to ScrollViewer instances."); }
+        }
+
+        public static bool GetAlwaysScrollToEnd(ScrollViewer scroll)
+        {
+            if (scroll == null) { throw new ArgumentNullException("scroll"); }
+            return (bool)scroll.GetValue(AlwaysScrollToEndProperty);
+        }
+
+        public static void SetAlwaysScrollToEnd(ScrollViewer scroll, bool alwaysScrollToEnd)
+        {
+            if (scroll == null) { throw new ArgumentNullException("scroll"); }
+            scroll.SetValue(AlwaysScrollToEndProperty, alwaysScrollToEnd);
+        }
+
+        private static void ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            ScrollViewer scroll = sender as ScrollViewer;
+            if (scroll == null) { throw new InvalidOperationException("The attached AlwaysScrollToEnd property can only be applied to ScrollViewer instances."); }
+
+            // User scroll event : set or unset autoscroll mode
+            if (e.ExtentHeightChange == 0) { _autoScroll = scroll.VerticalOffset == scroll.ScrollableHeight; }
+
+            // Content scroll event : autoscroll eventually
+            if (_autoScroll && e.ExtentHeightChange != 0) { scroll.ScrollToVerticalOffset(scroll.ExtentHeight); }
         }
     }
 }

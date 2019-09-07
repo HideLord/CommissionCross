@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,27 +8,168 @@ using System.Windows.Media;
 
 namespace Cross.Data
 {
-    public class FormData : BaseNotify, ICloneable
+    public class FormData : ICloneable, INotifyPropertyChanged
     {
-        public int SquareWidth { get; set; } = 100;
-        public int SquareHeight { get; set; } = 100;
+        private int squareWidth = 100;
+        public int SquareWidth {
+            get => squareWidth;
+            set
+            {
+                if (squareWidth == value) return;
+                squareWidth = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SquareWidth"));
+            }
+        }
+        private int squareHeight = 100;
+        public int SquareHeight
+        {
+            get => squareHeight;
+            set
+            {
+                if (squareHeight == value) return;
+                squareHeight = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SquareHeight"));
+            }
+        }
 
-        public int SetWidth { get; set; } = 100;
-        public int SetHeight { get; set; } = 100;
+        private int setWidth = 100;
+        public int SetWidth
+        {
+            get => setWidth;
+            set
+            {
+                if (setWidth == value) return;
+                setWidth = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SetWidth"));
+            }
+        }
+        private int setHeight = 100;
+        public int SetHeight
+        {
+            get => setHeight;
+            set
+            {
+                if (setHeight == value) return;
+                setHeight = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SetHeight"));
+            }
+        }
 
-        public int ArrowWidth { get; set; } = 100;
-        public int ArrowHeight { get; set; } = 100;
+        private int arrowWidth = 100;
+        public int ArrowWidth
+        {
+            get => arrowWidth;
+            set
+            {
+                if (arrowWidth == value) return;
+                arrowWidth = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ArrowWidth"));
+            }
+        }
+        private int arrowHeight = 100;
+        public int ArrowHeight
+        {
+            get => arrowHeight;
+            set
+            {
+                if (arrowHeight == value) return;
+                arrowHeight = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ArrowHeight"));
+            }
+        }
 
-        public int SquareRotation { get; set; } = 0;
-        public int SetRotation { get; set; } = 0;
+        private int squareRotation = 0;
+        public int SquareRotation
+        {
+            get => squareRotation;
+            set
+            {
+                if (squareRotation == value) return;
+                squareRotation = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SquareRotation"));
+            }
+        }
+        private int setRotation = 0;
+        public int SetRotation
+        {
+            get => setRotation;
+            set
+            {
+                if (setRotation == value) return;
+                setRotation = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SetRotation"));
+            }
+        }
 
-        public int SquareIndex { get; set; } = 0;
-        public int SetIndex { get; set; } = 0;
-        public int ArrowIndex { get; set; } = 0;
+        public int squareIndex  = 0;
+        public int SquareIndex
+        {
+            get => squareIndex;
+            set
+            {
+                if (squareIndex == value) return;
+                squareIndex = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SquareIndex"));
+            }
+        }
+        public int setIndex= 0;
+        public int SetIndex
+        {
+            get => setIndex;
+            set
+            {
+                if (setIndex == value) return;
+                setIndex = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SetIndex"));
+            }
+        }
+        public int arrowIndex = 0;
+        public int ArrowIndex
+        {
+            get => arrowIndex;
+            set
+            {
+                if (arrowIndex == value) return;
+                arrowIndex = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ArrowIndex"));
+            }
+        }
 
-        public Color SquareColor { get; set; } = Colors.White;
-        public Color SetColor { get; set; } = Colors.White;
-        public Color ArrowColor { get; set; } = Colors.Black;
+        public Color squareColor = Colors.White;
+        public Color SquareColor
+        {
+            get => squareColor;
+            set
+            {
+                if (squareColor == value) return;
+                squareColor = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SquareColor"));
+            }
+        }
+        public Color setColor = Colors.White;
+        public Color SetColor
+        {
+            get => setColor;
+            set
+            {
+                if (setColor == value) return;
+                setColor = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SetColor"));
+            }
+        }
+        public Color arrowColor  = Colors.Black;
+        public Color ArrowColor
+        {
+            get => arrowColor;
+            set
+            {
+                if (arrowColor == value) return;
+                arrowColor = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ArrowColor"));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public object Clone()
         {

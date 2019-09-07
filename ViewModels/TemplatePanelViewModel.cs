@@ -21,6 +21,7 @@ namespace WPF_Cross.ViewModels
         private void LoadTemplates()
         {
             AllTemplates = new ObservableCollection<TemplateFormData>(templateService.LoadTemplates("Templates/"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("AllTemplates"));
         }
 
         private void handleTemplateChanges(TemplateFormData data)

@@ -16,7 +16,7 @@
         <converters:NewLineToXamlNewLine x:Key="NewLineToXamlNewLine"/>
         <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
             <Setter Property="BorderThickness" Value="1"></Setter>
-            <Setter Property="Background" Value="LightGray"></Setter>
+            <Setter Property="Background" Value="White"></Setter>
         </Style>
     </Page.Resources>
 
@@ -26,6 +26,7 @@
             <ColumnDefinition Width="5"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
+        <ScrollViewer>
         <StackPanel>
             <TextBlock Margin="20" FontSize="30">
                 <Run Text="{Binding ActualWords}" ></Run>
@@ -54,10 +55,10 @@
                             </Button.InputBindings>
 
                             <Grid>
-                                <Path Data="{Binding Square.Points, Converter={StaticResource ResourceKey=PointsToPath}}">
+                                <Path Data="{Binding Square.Points, Converter={StaticResource ResourceKey=PointsToPath}}" >
                                     <Path.Style>
                                         <Style TargetType="Path">
-                                            <Setter Property="StrokeThickness" Value="2"/>
+                                            <Setter Property="StrokeThickness" Value="0.1"/>
                                             <Setter Property="Stroke" Value="Black"/>
                                             <Setter Property="Fill" Value="White"/>
                                             <Setter Property="Stretch" Value="Uniform"/>
@@ -81,8 +82,9 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </StackPanel>
+        </ScrollViewer>
         <GridSplitter Grid.Column="1" Grid.ColumnSpan="1" Width="5" HorizontalAlignment="Stretch" />
-        <ScrollViewer Grid.Column="2"  VerticalScrollBarVisibility="Hidden" functional:ScrollToBottom.AutoScroll="{Binding IsExpanded}">
+        <ScrollViewer Grid.Column="2"  VerticalScrollBarVisibility="Hidden" functional:ScrollToBottom.AlwaysScrollToEnd="True">
             <TextBlock TextWrapping="Wrap" Text="{Binding ProcessOutput}" Padding="50 0" FontSize="20" Background="Black" Foreground="White" FontFamily="Consolas"></TextBlock>
         </ScrollViewer>
     </Grid>

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,10 +22,21 @@ namespace WPF_Cross
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.ControlAppDomain)]
         public MainWindow()
         {
             Bootstrapper.Init();
+
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);
+
             InitializeComponent();
+        }
+
+        private void MyHandler(object sender, UnhandledExceptionEventArgs args)
+        {
+            Exception e = (Exception)args.ExceptionObject;
+            MessageBox.Show("MyHandler caught : " + e.Message);
+            MessageBox.Show("Runtime terminating: " + args.IsTerminating.ToString());
         }
     }
 }
