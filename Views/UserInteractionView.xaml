@@ -84,8 +84,21 @@
         </StackPanel>
         </ScrollViewer>
         <GridSplitter Grid.Column="1" Grid.ColumnSpan="1" Width="5" HorizontalAlignment="Stretch" />
-        <ScrollViewer Grid.Column="2"  VerticalScrollBarVisibility="Hidden" functional:ScrollToBottom.AlwaysScrollToEnd="True">
-            <TextBlock TextWrapping="Wrap" Text="{Binding ProcessOutput}" Padding="50 0" FontSize="20" Background="Black" Foreground="White" FontFamily="Consolas"></TextBlock>
-        </ScrollViewer>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <ScrollViewer VerticalScrollBarVisibility="Hidden" functional:ScrollToBottom.AlwaysScrollToEnd="True">
+                <TextBlock TextWrapping="Wrap" Text="{Binding ProcessOutput}" Padding="50 0" FontSize="20" Background="Black" Foreground="White" FontFamily="Consolas"></TextBlock>
+            </ScrollViewer>
+            <TextBox Grid.Row="1" VerticalContentAlignment="Center" Background="White" Foreground="Black" Padding="50 0" FontSize="20" Text="{Binding TextToSend, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.InputBindings>
+                    <KeyBinding Command="{Binding SendTextToProcess}"
+                                CommandParameter="{Binding TextToSend}" Key="Return"/>
+                </TextBox.InputBindings>
+            </TextBox>
+        </Grid>
+        
     </Grid>
 </Page>

@@ -34,9 +34,9 @@ namespace WPF_Cross
 
         private void MyHandler(object sender, UnhandledExceptionEventArgs args)
         {
-            Exception e = (Exception)args.ExceptionObject;
-            MessageBox.Show("MyHandler caught : " + e.Message);
-            MessageBox.Show("Runtime terminating: " + args.IsTerminating.ToString());
+            //Exception e = (Exception)args.ExceptionObject;
+            //MessageBox.Show("MyHandler caught : " + e.Message);
+            //MessageBox.Show("Runtime terminating: " + args.IsTerminating.ToString());
         }
     }
 }

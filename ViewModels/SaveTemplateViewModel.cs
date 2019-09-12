@@ -27,6 +27,7 @@ namespace WPF_Cross.ViewModels
 
         private void saveTemplate(object obj)
         {
+            CurrentData.TemplateName = CurrentData.TemplateName.ToUpper();
             templateService.SaveTemplate(CurrentData);
             eventAggregator.GetEvent<TemplateChanges>().Publish((TemplateFormData)CurrentData.Clone());
         }

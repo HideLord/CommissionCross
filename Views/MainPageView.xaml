@@ -22,7 +22,7 @@
         </Frame>
         <Grid Visibility="{Binding EditorVisibility}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="327"/>
+                <ColumnDefinition Width="330"/>
                 <ColumnDefinition Width="5"/>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="5"/>

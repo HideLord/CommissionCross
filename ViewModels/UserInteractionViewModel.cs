@@ -33,6 +33,30 @@ namespace WPF_Cross.ViewModels
             }
         }
 
+        private ICommand sendTextToProcess;
+        public ICommand SendTextToProcess
+        {
+            get
+            {
+                if (sendTextToProcess == null) sendTextToProcess = new RelayCommand<string>(handleSendText);
+                return sendTextToProcess;
+            }
+        }
+
+        private void handleSendText(string obj)
+        {
+            if (waitingForInput)
+            {
+                if (TextToSend.Length != 0)
+                {
+                    waitingForInput = false;
+                    writer.WriteLine(obj);
+                    ActualWords = "";
+                    TextToSend = "";
+                }
+            }
+        }
+
         private void handleOptionClick(int obj)
         {
             if (waitingForInput)
@@ -64,6 +88,17 @@ namespace WPF_Cross.ViewModels
             {
                 actualWords = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ActualWords"));
+            }
+        }
+
+        private string textToSend = "";
+        public string TextToSend
+        {
+            get => textToSend;
+            set
+            {
+                textToSend = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TextToSend"));
             }
         }
 
@@ -152,7 +187,7 @@ namespace WPF_Cross.ViewModels
                 ActualWords = "";
             }
 
-            string bla = e.Data.Replace('|', '\u25A0');
+            string bla = e.Data.Replace('|', '\u2588');
 
             ProcessOutput += bla + "\n";
             IsExpanded = true;
@@ -167,7 +202,8 @@ namespace WPF_Cross.ViewModels
             }
             if (e.Data.IndexOf("custom") > -1)
             {
-                writer.WriteLine("emptystring");
+                ActualWords = "Write an explanation for the word " + e.Data.Split(' ')[1];
+                waitingForInput = true;
             }
             if (startListening)
             {
