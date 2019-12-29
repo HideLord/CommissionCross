@@ -92,7 +92,7 @@
             <ScrollViewer VerticalScrollBarVisibility="Hidden" functional:ScrollToBottom.AlwaysScrollToEnd="True">
                 <TextBlock TextWrapping="Wrap" Text="{Binding ProcessOutput}" Padding="50 0" FontSize="20" Background="Black" Foreground="White" FontFamily="Consolas"></TextBlock>
             </ScrollViewer>
-            <TextBox Grid.Row="1" VerticalContentAlignment="Center" Background="White" Foreground="Black" Padding="50 0" FontSize="20" Text="{Binding TextToSend, UpdateSourceTrigger=PropertyChanged}">
+            <TextBox Grid.Row="1" VerticalContentAlignment="Center" Background="Black" Foreground="White" Padding="50 0" FontSize="20" Text="{Binding TextToSend, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.InputBindings>
                     <KeyBinding Command="{Binding SendTextToProcess}"
                                 CommandParameter="{Binding TextToSend}" Key="Return"/>
